@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For You 💕</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #ffd1e3, #fff0f7, #ffd6ec);
+    overflow-x: hidden;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.card {
+    width: 90%;
+    max-width: 650px;
+    text-align: center;
+    background: rgba(255,255,255,0.90);
+    padding: 45px 25px;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(214,51,132,0.20);
+}
+
+h1 {
+    color: #e91e63;
+    font-size: 38px;
+}
+
+p {
+    color: #666;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+button {
+    border: none;
+    background: #ff4f91;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #e91e63;
+    transform: scale(1.05);
+}
+
+input {
+    padding: 14px;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 15px;
+    border: 2px solid #ff9fc2;
+    font-size: 17px;
+    text-align: center;
+    outline: none;
+}
+
+/* HIDDEN PAGES */
+
+#birthdayPage,
+#memoryPage,
+#finalPage {
+    display: none;
+}
+
+/* CAKE */
+
+.cake {
+    font-size: 120px;
+    margin: 20px;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+
+}
+
+/* FALLING HEARTS */
+
+.heart {
+    position: fixed;
+    top: -30px;
+    font-size: 25px;
+    animation: fall linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes fall {
+
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+
+}
+
+/* MEMORY PAGE */
+
+.memory-page {
+    min-height: 100vh;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.memory-message {
+    max-width: 700px;
+    margin: auto;
+    font-size: 20px;
+    color: #555;
+}
+
+/* BALLOONS */
+
+.balloon-container {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    margin-top: 70px;
+}
+
+.balloon {
+    width: 125px;
+    height: 155px;
+    border-radius: 50% 50% 45% 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    animation: float 2.5s ease-in-out infinite;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transition: 0.3s;
+    word-break: normal;
+}
+
+.balloon::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: #777;
+    top: 150px;
+}
+
+.balloon:nth-child(1) {
+    background: #ff5c8a;
+}
+
+.balloon:nth-child(2) {
+    background: #b85cff;
+    animation-delay: .4s;
+}
+
+.balloon:nth-child(3) {
+    background: #ff9f43;
+    animation-delay: .8s;
+}
+
+.balloon.clicked {
+    opacity: 0.9;
+    transform: scale(1.05);
+    font-size: 14px;
+}
+
+@keyframes float {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+}
+
+/* LAST BUTTON */
+
+#lastButton {
+    display: none;
+    margin-top: 70px;
+}
+
+/* FINAL PAGE */
+
+.final-text {
+    font-size: 20px;
+    line-height: 1.9;
+    color: #555;
+}
+
+.signature {
+    margin-top: 35px;
+    color: #e91e63;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .cake {
+        font-size: 90px;
+    }
+
+    .balloon-container {
+        gap: 35px;
+    }
+
+    .balloon {
+        width: 105px;
+        height: 135px;
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .balloon::after {
+        top: 130px;
+    }
+
+    .balloon.clicked {
+        font-size: 12px;
+    }
+
+    .final-text {
+        font-size: 17px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =================================================
+     PAGE 1
+================================================= -->
+
+<div class="page" id="firstPage">
+
+    <div class="card">
+
+        <div style="font-size:70px;">
+            🌸
+        </div>
+
+        <h1>
+            Hey Beautiful 💕
+        </h1>
+
+        <p>
+            I have a little question for you... 👀
+        </p>
+
+        <p>
+            What's today's date? 🎀
+        </p>
+
+        <input type="date" id="dateInput">
+
+        <br>
+
+        <button onclick="checkDate()">
+            Continue 💗
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     PAGE 2
+================================================= -->
+
+<div class="page" id="birthdayPage">
+
+    <div class="card">
+
+        <div style="font-size:50px;">
+            🎉 💕 🎈
+        </div>
+
+        <h1>
+            Happy Birthday Angel 🎂💖
+        </h1>
+
+        <div class="cake">
+            🎂
+        </div>
+
+        <p>
+            May your special day be filled with happiness,
+            smiles, love and beautiful memories. ✨
+        </p>
+
+        <p>
+            You deserve all the happiness in the world. 💕
+        </p>
+
+        <button onclick="showMemoryPage()">
+            I have a surprise for you 🎁
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     PAGE 3
+================================================= -->
+
+<div class="memory-page" id="memoryPage">
+
+    <h1>
+        A Little Memory 💭💕
+    </h1>
+
+    <p class="memory-message">
+
+        Some moments become memories,
+        and some memories become something
+        you always want to keep close to your heart. ❤️
+
+        <br><br>
+
+        So I kept a few little surprises here for you... 🎀
+
+        <br><br>
+
+        Click all three balloons 🎈
+
+    </p>
+
+
+    <div class="balloon-container">
+
+        <div class="balloon"
+             id="balloon1"
+             onclick="showMessage(1)">
+            CLICK ME 💕
+        </div>
+
+        <div class="balloon"
+             id="balloon2"
+             onclick="showMessage(2)">
+            CLICK ME 💗
+        </div>
+
+        <div class="balloon"
+             id="balloon3"
+             onclick="showMessage(3)">
+            CLICK ME 💖
+        </div>
+
+    </div>
+
+
+    <button id="lastButton" onclick="showFinalPage()">
+        One Last Thing 💌
+    </button>
+
+</div>
+
+
+<!-- =================================================
+     PAGE 4 : FINAL MESSAGE
+================================================= -->
+
+<div class="page" id="finalPage">
+
+    <div class="card">
+
+        <div style="font-size:65px;">
+            💕🌸
+        </div>
+
+        <h1>
+            One Last Thing... 💖
+        </h1>
+
+        <p class="final-text">
+
+            I don't know how special this little surprise
+            will be for you, but I just wanted to make your
+            birthday a little more beautiful. ✨
+
+            <br><br>
+
+            Some people come into our lives and somehow
+            make ordinary life feel special.
+            I always wish for your success. 💕
+
+            <br><br>
+
+            I hope you always keep that beautiful smile,
+            keep shining, and keep being the amazing person
+            you are. 🌸
+
+            <br><br>
+
+            And no matter how simple this surprise is,
+            I hope it made you smile even for a moment.
+
+            A smile on your face is the only thing
+            I ask from God.
+
+            <br><br>
+
+            Always for you. ❤️
+
+        </p>
+
+        <div class="signature">
+            by someone... 💕
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =====================================================
+   BIRTHDAY
+===================================================== */
+
+const BIRTHDAY_DATE = "2007-08-27";
+
+
+/* =====================================================
+   BALLOON MESSAGES
+===================================================== */
+
+const memories = {
+
+    1: {
+        message:
+        "May God always give you everything you want. ❤️"
+    },
+
+    2: {
+        message:
+        "If you got a little smile on your face, that's a precious thanks to me for my work. 🌸💗"
+    },
+
+    3: {
+        message:
+        "And lastly, I wish God always blesses you. Never stop smiling. ✨"
+    }
+
+};
+
+
+/* =====================================================
+   TRACK CLICKED BALLOONS
+===================================================== */
+
+let clickedBalloons = new Set();
+
+
+/* =====================================================
+   CHECK DATE
+===================================================== */
+
+function checkDate() {
+
+    const enteredDate =
+        document.getElementById("dateInput").value;
+
+
+    if (enteredDate === BIRTHDAY_DATE) {
+
+        document.getElementById("firstPage")
+            .style.display = "none";
+
+        document.getElementById("birthdayPage")
+            .style.display = "flex";
+
+        createHearts();
+
+    }
+
+    else if (enteredDate === "") {
+
+        alert("Enter the date first, beautiful 💕");
+
+    }
+
+    else {
+
+        alert("Hmm... that's not the right date 👀💕");
+
+    }
+
+}
+
+
+/* =====================================================
+   MEMORY PAGE
+===================================================== */
+
+function showMemoryPage() {
+
+    document.getElementById("birthdayPage")
+        .style.display = "none";
+
+    document.getElementById("finalPage")
+        .style.display = "none";
+
+    document.getElementById("memoryPage")
+        .style.display = "block";
+
+}
+
+
+/* =====================================================
+   SHOW MESSAGE ON BALLOON
+===================================================== */
+
+function showMessage(number) {
+
+    if (clickedBalloons.has(number)) {
+        return;
+    }
+
+
+    clickedBalloons.add(number);
+
+
+    const balloon =
+        document.getElementById("balloon" + number);
+
+
+    const memory =
+        memories[number];
+
+
+    /* Replace CLICK ME text with message */
+
+    balloon.innerText =
+        memory.message;
+
+
+    balloon.classList.add("clicked");
+
+
+    /* Show final button after all 3 balloons */
+
+    if (clickedBalloons.size === 3) {
+
+        document.getElementById("lastButton")
+            .style.display = "inline-block";
+
+    }
+
+}
+
+
+/* =====================================================
+   FINAL PAGE
+===================================================== */
+
+function showFinalPage() {
+
+    document.getElementById("memoryPage")
+        .style.display = "none";
+
+    document.getElementById("finalPage")
+        .style.display = "flex";
+
+}
+
+
+/* =====================================================
+   FALLING HEARTS
+===================================================== */
+
+function createHearts() {
+
+    const hearts = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💓",
+        "💞"
+    ];
+
+
+    for (let i = 0; i < 30; i++) {
+
+        const heart =
+            document.createElement("div");
+
+
+        heart.className =
+            "heart";
+
+
+        heart.innerText =
+            hearts[
+                Math.floor(
+                    Math.random() * hearts.length
+                )
+            ];
+
+
+        heart.style.left =
+            Math.random() * 100 + "vw";
+
+
+        heart.style.animationDuration =
+            (3 + Math.random() * 5) + "s";
+
+
+        heart.style.animationDelay =
+            Math.random() * 4 + "s";
+
+
+        document.body.appendChild(heart);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
